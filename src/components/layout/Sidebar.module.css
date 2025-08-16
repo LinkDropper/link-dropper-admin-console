@@ -1,0 +1,240 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+.overlayVisible {
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  .overlay {
+    display: block;
+  }
+}
+
+.sidebar {
+  position: fixed;
+  inset-y: 0;
+  left: 0;
+  z-index: 50;
+  width: 16rem;
+  background-color: var(--bg-elevated);
+  border-right: 1px solid var(--border-color-subtle);
+  transform: translateX(-100%);
+  transition: all var(--transition-normal);
+  
+  /* 운영툴 사이드바 최적화 */
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarVisible {
+  transform: translateX(0);
+}
+
+.sidebarCollapsed {
+  width: 4.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    position: static;
+    transform: translateX(0);
+  }
+  
+  .sidebarCollapsed {
+    transform: translateX(0);
+  }
+}
+
+.header {
+  display: flex;
+  height: 4.5rem;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color-subtle);
+  padding: 0 var(--spacing-4);
+  background-color: var(--bg-elevated);
+  
+  /* 운영툴 헤더 최적화 */
+  flex-shrink: 0;
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--primary-color);
+  margin: 0;
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.toggleButton {
+  display: none;
+  background: none;
+  border: none;
+  padding: var(--spacing-2);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  
+  /* 운영툴 토글 버튼 최적화 */
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggleButton:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  transform: scale(1.05);
+}
+
+.toggleButtonCollapsed {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: var(--spacing-1) auto;
+}
+
+@media (min-width: 1024px) {
+  .toggleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.chevron {
+  width: 1rem;
+  height: 1rem;
+  transition: transform var(--transition-fast);
+}
+
+.chevronRotated {
+  transform: rotate(180deg);
+}
+
+.nav {
+  flex: 1;
+  padding: var(--spacing-4) var(--spacing-3);
+  overflow-y: auto;
+  
+  /* 운영툴 내비게이션 최적화 */
+  scrollbar-width: thin;
+}
+
+.navList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navItem {
+  display: flex;
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-2);
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+  position: relative;
+  
+  /* 운영툴 내비게이션 링크 최적화 */
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+}
+
+.navLink:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--border-color-subtle);
+  transform: translateX(2px);
+}
+
+.navLinkActive {
+  background-color: var(--primary-100);
+  color: var(--primary-color);
+  border-color: var(--primary-200);
+  font-weight: 600;
+}
+
+.navLinkActive:hover {
+  background-color: var(--primary-200);
+  color: var(--primary-700);
+  transform: translateX(2px);
+}
+
+.navLinkActive::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--primary-color);
+  border-radius: 0 2px 2px 0;
+}
+
+.navLinkCollapsed {
+  justify-content: center;
+  padding: var(--spacing-3) var(--spacing-2);
+  transform: none;
+}
+
+.navLinkCollapsed:hover {
+  transform: scale(1.05);
+}
+
+.navIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.navIconWithText {
+  margin-right: var(--spacing-3);
+}
+
+.navText {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: opacity var(--transition-fast);
+}
+
+.footer {
+  border-top: 1px solid var(--border-color-subtle);
+  padding: var(--spacing-4);
+  background-color: var(--bg-tertiary);
+  flex-shrink: 0;
+  
+  /* 운영툴 푸터 최적화 */
+  margin-top: auto;
+}
+
+.footerText {
+  font-size: var(--font-size-xs);
+  color: var(--text-tertiary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+}
