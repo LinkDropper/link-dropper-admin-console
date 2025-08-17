@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
     const userData = await kakaoAuthService.getUserData(tokenData.access_token);
 
     const { accessToken }: { accessToken: string } = await postFetch({
-      url: `${getApiBaseUrl()}/user/login`,
+      url: `${getApiBaseUrl()}/admin/login`,
       body: {
         socialId: userData.id,
         email: userData.kakao_account.email,
