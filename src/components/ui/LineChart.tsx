@@ -34,8 +34,6 @@ export interface LineChartDataset {
 }
 
 export interface LineChartProps {
-  title: string;
-  description: string;
   datasets: LineChartDataset[];
   labels: string[];
   height?: number;
@@ -46,14 +44,11 @@ export interface LineChartProps {
 }
 
 export default function LineChart({
-  title,
-  description,
   datasets,
   labels,
   height = 300,
   showGrid = true,
   showLegend = false,
-  onDatasetToggle,
 }: LineChartProps) {
   const chartData = {
     labels,
@@ -137,9 +132,6 @@ export default function LineChart({
       mode: 'nearest' as const,
       axis: 'x' as const,
       intersect: false,
-    },
-    hover: {
-      animationDuration: 200,
     },
     animation: {
       duration: 750,

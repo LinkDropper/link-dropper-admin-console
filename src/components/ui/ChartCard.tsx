@@ -51,8 +51,6 @@ export default function ChartCard({
         <div className={styles.chartContainer}>
           <div className={styles.chartArea}>
             <LineChart
-              title={title}
-              description={description}
               datasets={datasets}
               labels={chartLabels}
               height={320}
