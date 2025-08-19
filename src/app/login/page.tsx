@@ -4,6 +4,12 @@ import React, { useState } from 'react';
 import Image from 'next/image';
 import styles from './page.module.css';
 
+const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_REST_API_KEY;
+const REDIRECT_URI = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI;
+
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID;
+const GOOGLE_REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI;
+
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState<'kakao' | 'google' | null>(null);
 
@@ -18,13 +24,9 @@ export default function LoginPage() {
     try {
       setIsLoading('kakao');
       
-      const redirectUri = `${window.location.origin}/api/auth/kakao`;
-      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?` +
-        `client_id=${clientId}&` +
-        `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-        `response_type=code&` +
-        `scope=profile_nickname,profile_image,account_email`;
-      
+      const redirectUrl = window.location.origin;
+      const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&state=${redirectUrl}`;
+
       window.location.href = kakaoAuthUrl;
     } catch (error) {
       console.error('Kakao login error:', error);
@@ -44,15 +46,9 @@ export default function LoginPage() {
     try {
       setIsLoading('google');
       
-      const redirectUri = `${window.location.origin}/api/auth/google`;
-      const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
-        `client_id=${clientId}&` +
-        `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-        `response_type=code&` +
-        `scope=openid profile email&` +
-        `access_type=offline&` +
-        `prompt=consent`;
-      
+      const redirectUrl = window.location.origin;
+      const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile&access_type=offline&state=${redirectUrl}`;
+
       window.location.href = googleAuthUrl;
     } catch (error) {
       console.error('Google login error:', error);
