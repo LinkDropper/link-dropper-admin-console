@@ -24,7 +24,7 @@ export default function LoginPage() {
     try {
       setIsLoading('kakao');
       
-      const redirectUrl = window.location.origin;
+      const redirectUrl = `${window.location.origin}/dashboard`;
       const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code&state=${redirectUrl}`;
 
       window.location.href = kakaoAuthUrl;
@@ -46,7 +46,7 @@ export default function LoginPage() {
     try {
       setIsLoading('google');
       
-      const redirectUrl = window.location.origin;
+      const redirectUrl = `${window.location.origin}/dashboard`;
       const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${GOOGLE_REDIRECT_URI}&response_type=code&scope=email profile&access_type=offline&state=${redirectUrl}`;
 
       window.location.href = googleAuthUrl;

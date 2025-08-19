@@ -19,37 +19,13 @@ export async function GET(request: NextRequest) {
     const tokenData = await kakaoAuthService.getToken(code);
     const userData = await kakaoAuthService.getUserData(tokenData.access_token);
 
-    const apiBaseUrl = getApiBaseUrl();
-    const loginUrl = `${apiBaseUrl}/admin/login`;
-    
-    console.log("로그인 API 호출:", {
-      url: loginUrl,
-      socialId: userData.id,
-      email: userData.kakao_account.email,
-      socialPlatform: SOCIAL_TYPES.KAKAO,
+    const { accessToken }: { accessToken: string } = await postFetch({
+      url: `${getApiBaseUrl()}/admin/login`,
+      body: {
+        socialId: userData.id,
+        socialPlatform: SOCIAL_TYPES.KAKAO,
+      },
     });
-
-    let accessToken: string;
-    
-    try {
-      const result: { accessToken: string } = await postFetch({
-        url: loginUrl,
-        body: {
-          socialId: userData.id,
-          email: userData.kakao_account.email,
-          socialPlatform: SOCIAL_TYPES.KAKAO,
-        },
-      });
-      accessToken = result.accessToken;
-      console.log("로그인 API 성공:", { accessToken: accessToken ? "토큰 존재" : "토큰 없음" });
-    } catch (apiError) {
-      console.error("로그인 API 실패:", {
-        error: apiError,
-        message: apiError instanceof Error ? apiError.message : "알 수 없는 오류",
-        url: loginUrl
-      });
-      throw apiError;
-    }
 
     const response = NextResponse.redirect(
       redirectUrl || new URL("/", request.url)
