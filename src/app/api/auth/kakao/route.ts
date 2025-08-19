@@ -19,8 +19,18 @@ export async function GET(request: NextRequest) {
     const tokenData = await kakaoAuthService.getToken(code);
     const userData = await kakaoAuthService.getUserData(tokenData.access_token);
 
+    const apiBaseUrl = getApiBaseUrl();
+    const loginUrl = `${apiBaseUrl}/admin/login`;
+    
+    console.log("로그인 API 호출:", {
+      url: loginUrl,
+      socialId: userData.id,
+      email: userData.kakao_account.email,
+      socialPlatform: SOCIAL_TYPES.KAKAO,
+    });
+
     const { accessToken }: { accessToken: string } = await postFetch({
-      url: `${getApiBaseUrl()}/admin/login`,
+      url: loginUrl,
       body: {
         socialId: userData.id,
         email: userData.kakao_account.email,
